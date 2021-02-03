@@ -1,6 +1,7 @@
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
-	
+    info.changeLifeBy(-1)
 })
+let mySprite3: Sprite = null
 scene.setBackgroundImage(img`
     ffffffffffffff44fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff44ccccccccccccccccccccccccccccccccccccccccccccccccccc
     ffffffffffff44fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff44ccccccccccccccccccccccccccccccccccccccccccccccccc
@@ -141,41 +142,45 @@ let mySprite = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     `, SpriteKind.Player)
-let mySprite2 = sprites.create(img`
+mySprite.setStayInScreen(true)
+info.setLife(3)
+let mySprite2 = sprites.createProjectileFromSprite(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
-    . . . . . . . 2 2 2 2 2 2 . . . 
-    . . . . . . 2 2 . . . . . . . . 
-    . . . . . 2 2 2 . . . . . . . . 
-    . . . 2 2 2 2 2 . . . . . . . . 
-    . . . . . 2 2 2 . . . . . . . . 
-    . . . . . . 2 2 . . . . . . . . 
-    . . . . . . . 2 2 2 2 2 2 . . . 
+    . . 2 2 2 2 2 2 2 2 2 2 2 . . . 
+    . . . 2 2 2 2 2 2 2 2 2 . . . . 
+    . . . 4 4 4 2 2 2 4 4 4 . . . . 
+    . . . . 4 4 4 4 4 4 4 . . . . . 
+    . . . . 5 5 4 4 4 5 5 . . . . . 
+    . . . . . 5 5 5 5 5 . . . . . . 
+    . . . . . b 5 5 5 b . . . . . . 
+    . . . . . b b 1 b b . . . . . . 
+    . . . . . . 1 1 1 . . . . . . . 
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    `, SpriteKind.Enemy)
+    `, null, 200, 0)
 controller.moveSprite(mySprite)
-mySprite2.follow(mySprite, 100)
-mySprite2 = sprites.createProjectileFromSide(img`
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . 2 2 2 2 2 2 2 2 . 
-    . . . . . . 2 2 . . . . . . . . 
-    . . . . . 2 2 2 . . . . . . . . 
-    . . . 2 2 2 2 2 . . . . . . . . 
-    . . . . . 2 2 2 . . . . . . . . 
-    . . . . . . 2 2 . . . . . . . . 
-    . . . . . . . 2 2 2 2 2 2 2 2 . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    `, 100, 100)
+game.onUpdateInterval(500, function () {
+    mySprite3.setVelocity(100, 0)
+    mySprite3 = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . 2 2 2 2 2 2 2 2 2 2 2 . . . 
+        . . . 2 2 2 2 2 2 2 2 2 . . . . 
+        . . . 4 4 4 2 2 2 4 4 4 . . . . 
+        . . . . 4 4 4 4 4 4 4 . . . . . 
+        . . . . 5 5 4 4 4 5 5 . . . . . 
+        . . . . . 5 5 5 5 5 . . . . . . 
+        . . . . . b 5 5 5 b . . . . . . 
+        . . . . . b b 1 b b . . . . . . 
+        . . . . . . 1 1 1 . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, SpriteKind.Enemy)
+})
